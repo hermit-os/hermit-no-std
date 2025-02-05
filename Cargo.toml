@@ -16,7 +16,7 @@ log = { version = "0.4", default-features = false }
 num = { version = "0.4", default-features = false }
 
 [features]
-default = ["pci", "pci-ids", "fsgsbase", "acpi", "fuse"]
+default = ["pci", "pci-ids", "fsgsbase", "acpi", "fuse", "dns", "dhcpv4", "tcp", "udp"]
 vga = ["hermit-kernel/vga"]
 pci = ["hermit-kernel/pci"]
 pci-ids = ["hermit-kernel/pci-ids"]
