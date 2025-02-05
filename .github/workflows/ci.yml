@@ -13,6 +13,23 @@ env:
   RUSTDOCFLAGS: -Dwarnings
 
 jobs:
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: rust-src
+      - uses: mkroening/rust-toolchain-toml@main
+      - run: |
+          rustup component add clippy llvm-tools
+      - name: Clippy
+        run: |
+          cargo clippy --target x86_64-unknown-none
+
   format:
     name: Format
     runs-on: ubuntu-latest
