@@ -59,8 +59,26 @@ jobs:
     - name: Build dev profile
       run: cargo build
     - name: Test debug profile (Qemu)
-      run: cargo run
+      run: |
+        set +e
+        cargo run
+        if [ $? -eq 3 ]; then
+          echo "Hermit runs succesfully within Qemu"
+          exit 0
+        else
+          echo "Hermit isn't able to run within Qemu"
+          exit 1
+        fi
     - name: Build release profile
       run: cargo build --release
     - name: Test release profile (Qemu)
-      run: cargo run --release
+      run: |
+        set +e
+        cargo run --release
+        if [ $? -eq 3 ]; then
+          echo "Hermit runs succesfully within Qemu"
+          exit 0
+        else
+          echo "Hermit isn't able to run within Qemu"
+          exit 1
+        fi
