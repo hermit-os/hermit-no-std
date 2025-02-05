@@ -1,6 +1,6 @@
 # hermit-no-std
 
-`hermit-no-std` is a demo to boot a Hermit application without _Rust Standard Library_.
+`hermit-no-std` is a demo to boot a Hermit application without the _Rust Standard Library_.
 The interface to the kernel is not (yet) stable and can change between kernel versions.
 
 ## Requirements
