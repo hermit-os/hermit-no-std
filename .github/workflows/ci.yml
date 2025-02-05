@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  pull_request:
+  merge_group:
+
+env:
+  GH_TOKEN: ${{ github.token }}
+  RUSTFLAGS: -Dwarnings
+  RUSTDOCFLAGS: -Dwarnings
+
+jobs:
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: rust-src
+      - uses: mkroening/rust-toolchain-toml@main
+      - run: |
+          rustup component add clippy llvm-tools
+
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mkroening/rust-toolchain-toml@main
+      - run: rustup component add rustfmt
+      - name: Format
+        run: cargo fmt -- --check
+
+  kvm:
+    name: KVM
+    runs-on: [self-hosted]
+    steps:
+    - name: Install QEMU
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y qemu-kvm
+    - uses: actions/checkout@v4
+      with:
+         submodules: true
+    - uses: dtolnay/rust-toolchain@stable
+    - run: echo "$CARGO_HOME/bin" >> "$GITHUB_PATH"
+    - uses: mkroening/rust-toolchain-toml@main
+    - name: Download loader  
+      run: gh release download --repo hermit-os/loader --pattern hermit-loader-x86_64
+    - name: Build dev profile
+      run: cargo build
+    - name: Check KVM availability
+      shell: bash
+      run: |
+         lscpu
+         kvm-ok
+    - name: Test debug profile (Qemu)
+      run: cargo run
+    - name: Build release profile
+      run: cargo build --release
+    - name: Test release profile (Qemu)
+      run: cargo run --release
