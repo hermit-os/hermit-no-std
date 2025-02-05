@@ -1,0 +1,30 @@
+[package]
+name = "hermit-no-std"
+version = "0.1.0"
+authors = ["Stefan Lankes <slankes@eonerc.rwth-aachen.de>"]
+edition = "2021"
+license = "MIT/Apache-2.0"
+readme = "README.md"
+keywords = ["operating systems", "kernel"]
+categories = ["os"]
+repository = "https://github.com/hermit-os/hermit-no-std"
+description = "Boot HermitOS without std support"
+
+[dependencies]
+hermit-kernel = { path = "./kernel", default-features = false }
+log = { version = "0.4", default-features = false }
+num = { version = "0.4", default-features = false }
+
+[features]
+default = ["pci", "pci-ids", "fsgsbase", "acpi", "fuse"]
+vga = ["hermit-kernel/vga"]
+pci = ["hermit-kernel/pci"]
+pci-ids = ["hermit-kernel/pci-ids"]
+acpi = ["hermit-kernel/acpi"]
+fsgsbase = ["hermit-kernel/fsgsbase"]
+smp = ["hermit-kernel/smp"]
+fuse = ["hermit-kernel/fuse"]
+tcp = ["hermit-kernel/tcp"]
+udp = ["hermit-kernel/udp"]
+dns = ["hermit-kernel/dns"]
+dhcpv4 = ["hermit-kernel/dhcpv4"]
