@@ -43,7 +43,7 @@ extern "C" fn foo(_: usize) {
 
 #[no_mangle] // don't mangle the name of this function
 pub extern "C" fn runtime_entry(_argc: i32, _argv: *const *const u8, _env: *const *const u8) -> ! {
-	info!("Start user-level process to initialize the HermitOS");
+	info!("Start HermitOS");
 
 	let id = unsafe { spawn(foo, 0, NORMAL_PRIO, hermit::DEFAULT_STACK_SIZE, -1) };
 	let _ = join(id);
