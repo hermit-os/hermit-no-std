@@ -3,6 +3,9 @@
 `hermit-no-std` is a demo to boot a Hermit application without the _Rust Standard Library_.
 The interface to the kernel is not (yet) stable and can change between kernel versions.
 
+Instead of using the crate [hermit-kernel](https://crates.io/crates/hermit-kernel), it is also possible to integrate the kernel as git submodule.
+The branch `dev` is an example for this use case.
+
 ## Requirements
 
 * [`rustup`](https://www.rust-lang.org/tools/install)
