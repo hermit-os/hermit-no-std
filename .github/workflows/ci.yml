@@ -17,7 +17,7 @@ jobs:
     name: Clippy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           submodules: true
       - uses: dtolnay/rust-toolchain@nightly
@@ -34,7 +34,7 @@ jobs:
     name: Format
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: mkroening/rust-toolchain-toml@main
       - run: rustup component add rustfmt
       - name: Format
@@ -48,7 +48,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y qemu-kvm
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
          submodules: true
     - uses: dtolnay/rust-toolchain@stable
